@@ -499,11 +499,11 @@ function Pricing({ timeLeft }: { timeLeft: number }) {
 const VOICE_TESTIMONIALS = [
   {
     // Salve seu print do WhatsApp na pasta public/prints/ e renomeie para print1.jpg (ou .png)
-    screenshot: '/prints/print1.jpg',
+    screenshot: '/prints/print1.jpeg',
     audioUrl: '/audio/aluno-1.ogg', // Áudio correspondente na pasta public/audio/
   },
   {
-    screenshot: '/prints/print2.jpg',
+    screenshot: '/prints/print2.jpeg',
     audioUrl: '/audio/aluno-2.ogg',
   },
   {
