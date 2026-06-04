@@ -318,7 +318,7 @@ function FormasRenda() {
   );
 }
 
-function Protocolo() {
+export function Protocolo() {
   return (
     <section className="py-12 px-4 bg-black relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(14,165,233,0.15)_0%,transparent_70%)]"></div>
@@ -536,7 +536,7 @@ function Resultados() {
   );
 }
 
-function Modules() {
+export function Modules() {
   return (
     <section className="py-10 px-4">
       <div className="text-center max-w-4xl mx-auto mb-16">
@@ -562,7 +562,7 @@ function Modules() {
   );
 }
 
-function Services() {
+export function Services() {
   return (
     <section className="py-10 px-4">
       <div className="text-center max-w-4xl mx-auto mb-16">

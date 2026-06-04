@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils'; 
 
 // --- TYPES ---
-interface HeroProps extends React.HTMLAttributes<HTMLDivElement> {
+interface HeroProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   title: React.ReactNode;
   subtitle: string;
   videos: { src: string; poster: string; alt: string; }[];
@@ -55,6 +55,7 @@ const CarouselVideo = ({
         ref={videoRef}
         src={src}
         poster={poster}
+        aria-label={alt}
         className="object-cover w-full h-full rounded-3xl"
         loop
         playsInline
