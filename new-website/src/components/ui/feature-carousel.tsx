@@ -54,11 +54,12 @@ const CarouselVideo = ({
       <video
         ref={videoRef}
         src={src}
-        poster={poster}
+        poster={poster || undefined}
         aria-label={alt}
         className="object-cover w-full h-full rounded-3xl"
         loop
         playsInline
+        preload="metadata"
       />
       {/* Botão de Play */}
       {!isPlaying && isCenter && (
