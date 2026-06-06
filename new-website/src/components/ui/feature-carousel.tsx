@@ -31,15 +31,23 @@ const CarouselVideo = ({
   const [generatedPoster, setGeneratedPoster] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.play().catch((err) => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Center videos auto-preview muted; once clicked they play with sound.
+    const shouldPlay = isCenter || isPlaying;
+    video.muted = !isPlaying;
+
+    if (shouldPlay) {
+      video.play().catch((err) => {
         console.log("Erro ao iniciar o vídeo:", err);
       });
     } else {
-      videoRef.current.pause();
+      video.pause();
+      // Reset off-screen videos so the next preview starts from the beginning.
+      video.currentTime = 0;
     }
-  }, [isPlaying]);
+  }, [isCenter, isPlaying]);
 
   // Force mobile browsers to show the first frame as thumbnail
   React.useEffect(() => {
@@ -104,12 +112,13 @@ const CarouselVideo = ({
         aria-label={alt}
         className="object-cover w-full h-full rounded-3xl"
         loop
+        muted
         playsInline
         preload="auto"
       />
       {/* Botão de Play */}
       {!isPlaying && isCenter && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/10 transition-colors rounded-3xl">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/15 hover:bg-black/5 transition-colors rounded-3xl">
           <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/95 flex items-center justify-center scale-100 hover:scale-110 transition-transform shadow-[0_0_20px_rgba(14,165,233,0.4)]">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 md:w-8 md:h-8 text-primary-foreground ml-0.5">
               <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
@@ -185,7 +194,7 @@ export const HeroSection = React.forwardRef<HTMLDivElement, HeroProps>(
           </div>
 
           {/* Main Showcase Section */}
-          <div className="relative w-full h-[350px] md:h-[450px] flex items-center justify-center">
+          <div className="relative w-full h-[420px] md:h-[450px] flex items-center justify-center">
             {/* Carousel Wrapper */}
             <div className="relative w-full h-full flex items-center justify-center [perspective:1000px]">
               {videos.map((video, index) => {
@@ -203,7 +212,7 @@ export const HeroSection = React.forwardRef<HTMLDivElement, HeroProps>(
                   <div
                     key={index}
                     className={cn(
-                      'absolute w-48 h-[270px] md:w-64 md:h-[450px] transition-all duration-500 ease-in-out',
+                      'absolute w-60 h-[340px] md:w-64 md:h-[450px] transition-all duration-500 ease-in-out',
                       'flex items-center justify-center'
                     )}
                     style={{
