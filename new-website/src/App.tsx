@@ -222,8 +222,7 @@ function Bonus() {
                 <div className="h-full p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 relative overflow-hidden group hover:shadow-[0_0_30px_rgba(14,165,233,0.1)]">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
                   <div className="relative z-10">
-                    <div className="text-3xl mb-3">{b.icon}</div>
-                    <div className="text-xs font-semibold text-primary mb-2 tracking-widest uppercase">{b.tag}</div>
+                    <div className="inline-block mb-3 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold tracking-wide uppercase">{b.tag}</div>
                     <h3 className="text-xl font-bold text-foreground mb-3">{b.title}</h3>
                     <p className="text-muted-foreground mb-6 text-sm leading-relaxed">{b.desc}</p>
                     <div className="flex items-center justify-between pt-4 border-t border-border/50">
