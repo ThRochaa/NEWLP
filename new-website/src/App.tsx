@@ -140,21 +140,6 @@ function IssoNaoEReal() {
       src: "/videos/IMG_1379.MOV",
       poster: "",
       alt: "Vídeo 7"
-    },
-    {
-      src: "https://infinityia.cloud/videos/video-4.mp4",
-      poster: "https://infinityia.cloud/assets/video-thumb-3-ywpi_Ku4.webp",
-      alt: "Vídeo 8"
-    },
-    {
-      src: "https://infinityia.cloud/videos/video-5.mp4",
-      poster: "https://infinityia.cloud/assets/video-thumb-4-B1ZLUmTH.webp",
-      alt: "Vídeo 9"
-    },
-    {
-      src: "https://infinityia.cloud/videos/video-6.mp4",
-      poster: "https://infinityia.cloud/assets/video-thumb-5-7PPM3_AZ.webp",
-      alt: "Vídeo 10"
     }
   ];
 
