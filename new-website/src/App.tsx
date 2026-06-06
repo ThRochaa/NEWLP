@@ -259,11 +259,10 @@ function Bonus() {
               key={i}
               onClick={() => api?.scrollTo(i)}
               aria-label={`Slide ${i + 1}`}
-              className={`rounded-full transition-all duration-300 ${
-                i === current
+              className={`rounded-full transition-all duration-300 ${i === current
                   ? 'w-6 h-2 bg-primary shadow-[0_0_10px_rgba(14,165,233,0.5)]'
                   : 'w-2 h-2 bg-zinc-600 hover:bg-zinc-400'
-              }`}
+                }`}
             />
           ))}
         </div>
@@ -407,7 +406,7 @@ export function Protocolo() {
           <span></span>
         </div>
         <div className="inline-block px-3 py-1 mb-4 border border-red-500/30 rounded-full bg-red-500/10 text-red-500 text-sm font-medium">ARQUIVOS SECRETOS</div>
-        <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-4 text-white">Protocolo de Arsenal Infinity</h2>
+        <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-4 text-white">Protocolo de Arsenal ViralVeo</h2>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-7xl mx-auto relative z-10">
         {[
@@ -465,7 +464,7 @@ function Fotorealismo() {
         <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-foreground">FOTOS PROFISSIONAIS</h2>
         <h3 className="text-xl font-semibold mb-4 text-primary">Isso aqui substitui 100% estúdios e câmeras profissionais, programas de edição e profissionais .</h3>
         <p className="text-muted-foreground text-lg mb-2">Quem aprende isso não depende mais de ninguém pra criar conteúdo que chama atenção e vende...</p>
-        <p className="text-muted-foreground text-sm">Arraste a barra para comparar a imagem original com o processamento da Infinity IA.</p>
+        <p className="text-muted-foreground text-sm">Arraste a barra para comparar a imagem original com o processamento da ViralVeo.</p>
       </div>
       <div className="flex flex-col md:flex-row gap-6 max-w-6xl mx-auto">
         <div className="w-full md:w-1/3">
@@ -520,7 +519,7 @@ function Pricing({ timeLeft }: { timeLeft: number }) {
       <div className="flex flex-col md:flex-row justify-center gap-6 max-w-5xl mx-auto relative z-10">
         <div className="p-8 rounded-3xl bg-secondary/30 border border-white/10 w-full md:w-1/2 flex flex-col">
           <div className="text-xs font-semibold text-primary mb-2 tracking-widest uppercase">Future</div>
-          <h3 className="text-2xl font-bold text-white mb-2">INFINITY BÁSICO</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">VIRALVEO BÁSICO</h3>
           <div className="mb-6 flex flex-col gap-1">
             <span className="line-through text-white/40">R$ 57</span>
             <span className="text-4xl font-black text-white">R$ 19,90</span>
@@ -645,7 +644,7 @@ export function Services() {
     <section className="py-10 px-4">
       <div className="text-center max-w-4xl mx-auto mb-16">
         <div className="inline-block px-3 py-1 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">Exclusividade Total</div>
-        <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-foreground">Infinity Services</h2>
+        <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-foreground">ViralVeo Services</h2>
         <p className="text-muted-foreground text-lg">Contrate nossos serviços</p>
       </div>
       <div className="max-w-3xl mx-auto p-8 rounded-3xl bg-card border border-border/50 relative overflow-hidden">
@@ -782,7 +781,7 @@ function App() {
         <Faq />
       </main>
       <footer className="py-10 text-center text-muted-foreground text-sm border-t border-border/50">
-        © 2025 InfinityIA Academy. Todos os direitos reservados.
+        © 2026 ViralVeo. Todos os direitos reservados.
       </footer>
       <SalesNotification />
     </div>
