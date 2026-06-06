@@ -197,7 +197,7 @@ function Bonus() {
   }, [api]);
 
   return (
-    <section className="py-10 px-4 bg-secondary/30 overflow-hidden">
+    <section className="py-10 px-4 overflow-hidden">
       <div className="text-center max-w-4xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">
           <Gift className="w-4 h-4" />
@@ -477,8 +477,7 @@ function Pricing({ timeLeft }: { timeLeft: number }) {
   const pad = (num: number) => num.toString().padStart(2, '0');
 
   return (
-    <section className="py-10 px-4 bg-black relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.1)_0%,transparent_50%)]"></div>
+    <section className="py-10 px-4 relative overflow-hidden">
       <div className="text-center max-w-4xl mx-auto mb-16 relative z-10">
         <div className="inline-block px-5 py-1.5 mb-6 rounded-full bg-secondary/80 text-primary text-[10px] sm:text-xs tracking-[0.2em] uppercase font-bold border border-primary/30">Oferta por tempo limitado</div>
         <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-10 text-white uppercase">Quanto custa o<br /><span className="text-primary">Futuro?</span></h2>
@@ -688,7 +687,7 @@ function Faq() {
   };
 
   return (
-    <section className="py-10 px-4 bg-secondary/30">
+    <section className="py-10 px-4">
       <div className="text-center max-w-3xl mx-auto mb-16">
         <div className="inline-block px-3 py-1 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">Mão de obra qualificada em Inteligência Artificial</div>
         <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-foreground">Dúvidas Frequentes</h2>
