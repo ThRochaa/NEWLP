@@ -28,6 +28,7 @@ const CarouselVideo = ({
   onNavigate: () => void;
 }) => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [generatedPoster, setGeneratedPoster] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     if (!videoRef.current) return;
@@ -39,6 +40,51 @@ const CarouselVideo = ({
       videoRef.current.pause();
     }
   }, [isPlaying]);
+
+  // Force mobile browsers to show the first frame as thumbnail
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (!video || poster) return; // skip if there's already a poster
+
+    const handleLoadedData = () => {
+      // Force seek to first frame to render thumbnail on mobile
+      if (video.currentTime === 0) {
+        video.currentTime = 0.001;
+      }
+    };
+
+    const handleSeeked = () => {
+      // Capture the first frame as a poster image via canvas
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth || 320;
+        canvas.height = video.videoHeight || 568;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const dataUrl = canvas.toDataURL('image/webp', 0.8);
+          if (dataUrl && dataUrl !== 'data:,') {
+            setGeneratedPoster(dataUrl);
+          }
+        }
+      } catch (e) {
+        // Cross-origin videos can't be captured to canvas, that's ok
+      }
+    };
+
+    video.addEventListener('loadeddata', handleLoadedData);
+    video.addEventListener('seeked', handleSeeked);
+
+    // Also try to trigger load on mount for stubborn mobile browsers
+    video.load();
+
+    return () => {
+      video.removeEventListener('loadeddata', handleLoadedData);
+      video.removeEventListener('seeked', handleSeeked);
+    };
+  }, [poster, src]);
+
+  const effectivePoster = poster || generatedPoster || undefined;
 
   return (
     <div
@@ -54,12 +100,12 @@ const CarouselVideo = ({
       <video
         ref={videoRef}
         src={src}
-        poster={poster || undefined}
+        poster={effectivePoster}
         aria-label={alt}
         className="object-cover w-full h-full rounded-3xl"
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
       />
       {/* Botão de Play */}
       {!isPlaying && isCenter && (
