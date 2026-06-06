@@ -1,8 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
-import { WandSparkles, Film, Sprout, Bot, Sparkles } from 'lucide-react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { WandSparkles, Film, Sprout, Bot, Sparkles, Gift } from 'lucide-react';
 import { HeroSection } from './components/ui/feature-carousel';
 import { VoiceTestimonial } from './components/ui/voice-testimonial';
 import { SalesNotification } from './components/ui/sales-notification';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from './components/ui/carousel';
 
 function Marquee() {
   return (
@@ -161,34 +167,106 @@ function IssoNaoEReal() {
   );
 }
 
+const BONUS_ITEMS = [
+  { tag: "Kit Completo", title: "Diversas Ferramentas IAs", desc: "Acesso às melhores ferramentas de IA do mercado, inclusive ferramentas gratuitas para turbinar seus resultados", val: "R$ 450,00", icon: "🛠️" },
+  { tag: "Biblioteca VIP", title: "Prompts Secretos", desc: "Receba acesso a um arsenal de Prompts prontos exclusivos testados e validados que geram resultados absurdos.", val: "R$ 300,00", icon: "🔑" },
+  { tag: "Identidade Digital", title: "Criando seu Avatar Real", desc: "Crie um avatar hiper-realista seu para usar em conteúdos e vídeos", val: "R$ 150,00", icon: "🧑‍💻" },
+  { tag: "Trends do Momento", title: "Trends Virais", desc: "Receba passo a passo exclusivo das trends do momento (Objetos falantes, personagens 3D e etc)", val: "R$150,00", icon: "🔥" },
+  { tag: "Grupo Exclusivo", title: "Suporte Dedicado", desc: "Suporte exclusivo individual para dúvidas e orientação diária", val: "R$ 500,00", icon: "💬" },
+  { tag: "2.000+ Vídeos", title: "Pack Viral Instantâneo", desc: "Arsenal de vídeos prontos para postar. Baixe, coloque música e monetize.", val: "R$ 99.00", icon: "🎬" }
+];
+
 function Bonus() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  const onSelect = useCallback(() => {
+    if (!api) return;
+    setCurrent(api.selectedScrollSnap());
+    setCount(api.scrollSnapList().length);
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+    onSelect();
+    api.on('select', onSelect);
+    api.on('reInit', onSelect);
+    return () => {
+      api.off('select', onSelect);
+      api.off('reInit', onSelect);
+    };
+  }, [api, onSelect]);
+
+  // Auto-play
+  useEffect(() => {
+    if (!api) return;
+    const timer = setInterval(() => {
+      if (api.canScrollNext()) {
+        api.scrollNext();
+      } else {
+        api.scrollTo(0);
+      }
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [api]);
+
   return (
-    <section className="py-10 px-4 bg-secondary/30">
-      <div className="text-center max-w-4xl mx-auto mb-16">
-        <div className="inline-block px-3 py-1 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">Bônus Exclusivos Pra Você</div>
+    <section className="py-10 px-4 bg-secondary/30 overflow-hidden">
+      <div className="text-center max-w-4xl mx-auto mb-10">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">
+          <Gift className="w-4 h-4" />
+          Bônus Exclusivos Pra Você
+        </div>
         <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-foreground">Bônus de Lançamento</h2>
-        <p className="text-muted-foreground text-lg">Ao garantir sua vaga hoje, você recebe bônus avaliados em mais de  <strong className="text-foreground">R$ 1.500,00</strong> gratuitamente.</p>
+        <p className="text-muted-foreground text-lg">Ao garantir sua vaga hoje, você recebe bônus avaliados em mais de <strong className="text-foreground">R$ 1.500,00</strong> gratuitamente.</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {[
-          { tag: "Kit Completo", title: "Diversas Ferramentas IAs", desc: "Acesso às melhores ferramentas de IA do mercado, inclusive ferramentas gratuitas para turbinar seus resultados", val: "R$ 450,00" },
-          { tag: "Biblioteca VIP", title: "Prompts Secretos", desc: "Receba acesso a um arsenal de Prompts prontos exclusivos testados e validados que geram resultados absurdos.", val: "R$ 300,00" },
-          { tag: "Identidade Digital", title: "Criando seu Avatar Real", desc: "Crie um avatar hiper-realista seu para usar em conteúdos e vídeos", val: "R$ 150,00" },
-          { tag: "Trends do Momento", title: "Trends Virais", desc: "Receba passo a passo exclusivo das trends do momento (Objetos falantes, personagens 3D e etc)", val: "R$150,00" },
-          { tag: "Grupo Exclusivo", title: "Suporte Dedicado", desc: "Suporte exclusivo individual para dúvidas e orientação diária", val: "R$ 500,00" },
-          { tag: "2.000+ Vídeos", title: "Pack Viral Instantâneo", desc: "Arsenal de vídeos prontos para postar. Baixe, coloque música e monetize.", val: "R$ 99.00" }
-        ].map((b, i) => (
-          <div key={i} className="p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-colors relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
-            <div className="text-xs font-semibold text-primary mb-2 tracking-widest uppercase">{b.tag}</div>
-            <h3 className="text-xl font-bold text-foreground mb-3">{b.title}</h3>
-            <p className="text-muted-foreground mb-6 text-sm leading-relaxed">{b.desc}</p>
-            <div className="flex items-center justify-between pt-4 border-t border-border/50">
-              <div className="line-through text-muted-foreground text-sm">{b.val}</div>
-              <div className="text-emerald-400 font-bold text-sm bg-emerald-400/10 px-3 py-1 rounded-full">Grátis para você</div>
-            </div>
-          </div>
-        ))}
+
+      <div className="max-w-6xl mx-auto">
+        <Carousel
+          setApi={setApi}
+          opts={{
+            align: 'start',
+            loop: true,
+          }}
+          className="w-full"
+        >
+          <CarouselContent className="-ml-4">
+            {BONUS_ITEMS.map((b, i) => (
+              <CarouselItem key={i} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+                <div className="h-full p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 relative overflow-hidden group hover:shadow-[0_0_30px_rgba(14,165,233,0.1)]">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+                  <div className="relative z-10">
+                    <div className="text-3xl mb-3">{b.icon}</div>
+                    <div className="text-xs font-semibold text-primary mb-2 tracking-widest uppercase">{b.tag}</div>
+                    <h3 className="text-xl font-bold text-foreground mb-3">{b.title}</h3>
+                    <p className="text-muted-foreground mb-6 text-sm leading-relaxed">{b.desc}</p>
+                    <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                      <div className="line-through text-muted-foreground text-sm">{b.val}</div>
+                      <div className="text-emerald-400 font-bold text-sm bg-emerald-400/10 px-3 py-1 rounded-full">Grátis para você</div>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-2 mt-6">
+          {Array.from({ length: count }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => api?.scrollTo(i)}
+              aria-label={`Slide ${i + 1}`}
+              className={`rounded-full transition-all duration-300 ${
+                i === current
+                  ? 'w-6 h-2 bg-primary shadow-[0_0_10px_rgba(14,165,233,0.5)]'
+                  : 'w-2 h-2 bg-zinc-600 hover:bg-zinc-400'
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
